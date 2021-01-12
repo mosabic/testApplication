@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+
+<style>
+
+/*Aligning the container for entire screen to center */
+.container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+th{
+	font-family: sans-serif;
+	padding: 10px;
+	background-color: #2877F1;
+	color: white;
+}
+
+td{
+	font-family: sans-serif;
+	border: 1px solid black;
+	padding: 10px;
+}
+
+table{
+	border: 1px solid black;
+}
+
+h1{
+	font-family: sans-serif;
+	text-align: center;
+}
+
+body{
+	font-family: sans-serif;
+	background-color:#E5E3E3;
+}
+
+#data {
+	margin-bottom: 10px;
+}
+
+#data input, button{
+	padding: 10px;
+	width: 90px;
+}
+
+</style>
+</head>
+<body>
+<h1>Task List</h1>
+
+<!-- Create a container to keep all data together -->
+<div class="container">
+
+<!-- Create div to group together data for add -->
+	<div id ="data">
+		<input type = "text" id ="task" placeholder="Enter Task">
+		<input type = "text" id ="desc" placeholder="Enter Description">
+		<button>Add</button>
+	</div>
+
+<table id="myTable">
+  <tr>
+  	<th>Status</th>
+    <th>Task</th>
+   	<th>Description</th>
+   	<th>Date</th>
+    <th>Delete</th>
+  </tr>
+  
+  <!-- populate row for checkbox,task,desc,date and delete button -->
+  <tr>
+  	<td><input type="checkbox"></td>
+    <td>Plan</td>
+    <td>Plan next steps</td>
+    <td>Wed Jan 13 2021 11:00:26 GMT+0000 (Greenwich Mean Time)</td>
+    <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
+  </tr>
+  
+  <tr>
+  	<td><input type="checkbox"></td>
+    <td>Design</td>
+    <td>Design Prototype</td>
+    <td>Tue Jan 12 2021 13:00:26 GMT+0000 (Greenwich Mean Time)</td>
+    <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
+  </tr>
+  
+  <tr>
+  	<td><input type="checkbox"></td>
+    <td>Develop</td>
+    <td>Develop Prototype</td>
+    <td>Sun Jan 10 2021 06:11:26 GMT+0000 (Greenwich Mean Time)</td>
+    <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
+  </tr>
+
+  
+</table>
+</div>
+
+
+<script>
+//Select the individual elements which we want to capture data from
+	let btnAdd = document.querySelector('button');
+	let table = document.querySelector('table');
+	let taskInput = document.querySelector('#task');
+	let descInput = document.querySelector('#desc');
+	
+//listen for onClick event and pass the values into the variables below
+	btnAdd.addEventListener('click', () =>{
+		let task = taskInput.value;
+		let desc = descInput.value;
+		let d = new Date();
+		
+//create a template of the table row and populate it to return data to the table		
+		let template = 
+			`<tr>
+				<td><input type="checkbox"></td>
+				<td>${task}</td>
+				<td>${desc}</td>
+				<td>${d}</td>
+				<td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
+			</tr>`;
+			
+		table.innerHTML += template;
+	});
+
+//delete the row which has been selected by the delete button at the specific row index
+	function deleteRow(r){
+		var i = r.parentNode.parentNode.rowIndex;
+		document.getElementById("myTable").deleteRow(i);
+		}
+
+</script>
+</body>
+</html>
